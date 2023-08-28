@@ -30,15 +30,15 @@ public class GameService {
             Team tHome = teamService.getTeam(home);
             Team tAway = teamService.getTeam(away);
 
-            Page<Game> games = gameRepository.findByHomeAndAway(tHome, tAway, pageable);
-            return games.map(game -> GameReturnDTO.covert(game));
+            Page<Game> games = gameRepository.findByHomeAndAway(home, away, pageable);
+            return games.map(GameReturnDTO::covert);
 
         } else if (attendance != null) {
             Page<Game> games =  gameRepository.findByAttendanceGreaterThan(attendance, pageable);
-            return games.map(game -> GameReturnDTO.covert(game));
+            return games.map(GameReturnDTO::covert);
         }
         Page<Game> games =  gameRepository.findAll(pageable);
-        return games.map(game -> GameReturnDTO.covert(game));
+        return games.map(GameReturnDTO::covert);
     }
 
     public GameReturnDTO saveGame(SaveGameDTO saveGameDTO) {
@@ -52,8 +52,8 @@ public class GameService {
 
         Game game = new Game();
         game.setIdentifier(UUID.randomUUID().toString());
-        game.setHome(teamM);
-        game.setAway(teamV);
+        game.setHome(teamM.getIdentifier());
+        game.setAway(teamV.getIdentifier());
         game.setAttendance(0);
         game.setScoreHome(0);
         game.setScoreAway(0);
@@ -67,7 +67,9 @@ public class GameService {
 
     public GameReturnDTO editGame(String identifier, EditGameDTO editGameDTO) {
         Game gameBD = gameRepository.findByIdentifier(identifier);
-
+        if (gameBD == null){
+            return null;
+        }
         gameBD.setScoreAway(editGameDTO.getScoreAway());
         gameBD.setScoreHome(editGameDTO.getScoreHome());
         gameBD.setAttendance(editGameDTO.getAttendance());
@@ -87,7 +89,7 @@ public class GameService {
     public Integer getScoreTeam(String identifier) {
         Team team = teamService.getTeam(identifier);
 
-        return gameRepository.sumScoreTeamHome(team);
+        return 0;
     }
 
     public GameReturnDTO getGame(String identifier) {
