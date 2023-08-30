@@ -31,6 +31,8 @@ public class GameReturnDTO {
         gameReturnDTO.setScoreHome(game.getScoreHome());
         gameReturnDTO.setHome(game.getHome());
         gameReturnDTO.setAway(game.getAway());
+       // gameReturnDTO.setHome(TeamReturnDTO.covert(game.getHome()));
+       // gameReturnDTO.setAway(TeamReturnDTO.covert(game.getAway()));
         return gameReturnDTO;
     }
 
