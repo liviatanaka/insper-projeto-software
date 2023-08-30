@@ -20,6 +20,9 @@ public class  TeamService {
     }
 
     public TeamReturnDTO saveTeam(SaveTeamDTO saveTeam) {
+        if (getTeam(saveTeam.getIdentifier()) != null){
+            return null;
+        }
         Team team = new Team();
         team.setName(saveTeam.getName());
         team.setIdentifier(saveTeam.getIdentifier());

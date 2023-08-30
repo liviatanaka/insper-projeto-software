@@ -14,8 +14,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="partida" target="17" />
-      <module name="partida (1)" target="17" />
-      <module name="partida (2)" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

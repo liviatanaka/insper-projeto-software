@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/bet")
@@ -13,7 +14,7 @@ public class BetController {
     private BetService betService;
 
     @PostMapping
-    public Bet createBet(@RequestBody Bet bet) {
+    public Bet createBet(@RequestBody BetSaveDTO bet) {
         return betService.saveBet(bet);
     }
 
@@ -23,7 +24,7 @@ public class BetController {
     }
 
     @PutMapping("/{betId}/verify")
-    public Bet verifyBet(@PathVariable Integer betId) {
+    public Bet verifyBet(@PathVariable String betId) {
         return betService.verifyBet(betId);
     }
 
