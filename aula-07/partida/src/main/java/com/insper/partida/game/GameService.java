@@ -64,6 +64,7 @@ public class GameService {
         game.setStatus("SCHEDULED");
 
         gameRepository.save(game);
+
         return GameReturnDTO.covert(game);
 
     }
@@ -139,5 +140,9 @@ public class GameService {
         gameRepository.saveAll(games);
 
 
+    }
+
+    public List<Game> getGameByTeam(String identifier) {
+        return gameRepository.findByHomeOrAway(identifier, identifier);
     }
 }
