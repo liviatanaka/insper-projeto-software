@@ -31,6 +31,11 @@ public class GameController {
     }
 
 
+    @PostMapping("/generateData")
+    public void generateData() {
+        gameService.generateData();
+    }
+
     @GetMapping("/{identifier}")
     public GameReturnDTO getGame(@PathVariable String identifier) {
         return gameService.getGame(identifier);
@@ -52,9 +57,6 @@ public class GameController {
     }
 
 
-    @PostMapping("/generateData")
-    public void generateData() {
-        gameService.generateData();
-    }
+
 
 }

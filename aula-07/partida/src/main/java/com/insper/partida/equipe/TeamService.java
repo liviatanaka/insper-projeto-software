@@ -2,6 +2,7 @@ package com.insper.partida.equipe;
 
 import com.insper.partida.equipe.dto.SaveTeamDTO;
 import com.insper.partida.equipe.dto.TeamReturnDTO;
+import com.insper.partida.tabela.TabelaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class  TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
+    @Autowired
+    private TabelaService tabelaService;
+
 
     public List<TeamReturnDTO> listTeams() {
         return teamRepository.findAll().stream().map(team -> TeamReturnDTO.covert(team)).collect(Collectors.toList());
@@ -24,7 +28,9 @@ public class  TeamService {
         team.setName(saveTeam.getName());
         team.setIdentifier(saveTeam.getIdentifier());
 
+        tabelaService.createTabela(team.getName(), team.getIdentifier());
         team = teamRepository.save(team);
+
         return  TeamReturnDTO.covert(team);
     }
 
