@@ -58,6 +58,7 @@ public class BetService {
                     bet.setStatus(BetStatus.LOST);
                 }
             }
+            betRespository.save(bet);
         }
 
         return bet;
