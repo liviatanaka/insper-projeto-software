@@ -7,8 +7,6 @@ import com.insper.partida.equipe.dto.TeamReturnDTO;
 import com.insper.partida.game.dto.EditGameDTO;
 import com.insper.partida.game.dto.GameReturnDTO;
 import com.insper.partida.game.dto.SaveGameDTO;
-import com.insper.partida.tabela.TabelaRepository;
-import com.insper.partida.tabela.TabelaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +26,6 @@ public class GameService {
 
     @Autowired
     private TeamService teamService;
-
-    @Autowired
-    private TabelaService tabelaService;
 
     public Page<GameReturnDTO> listGames(String home, String away, Integer attendance, Pageable pageable) {
         if (home != null && away != null) {
@@ -69,7 +64,6 @@ public class GameService {
         game.setStatus("SCHEDULED");
 
         gameRepository.save(game);
-
         return GameReturnDTO.covert(game);
 
     }
@@ -83,9 +77,6 @@ public class GameService {
         gameBD.setStatus("FINISHED");
 
         Game game = gameRepository.save(gameBD);
-
-        tabelaService.editTabela(game);
-
         return GameReturnDTO.covert(game);
     }
 
@@ -143,7 +134,6 @@ public class GameService {
 
             //gameRepository.save(game);
             games.add(game);
-            tabelaService.editTabela(game);
 
         }
 
